@@ -1,31 +1,21 @@
 import { Movie } from "@/app/types/movie";
-import { cn } from "@/app/utils/cn";
 import { formatDate } from "@/app/utils/format-date";
+import Link from "next/link";
+import { MovieDataRow } from "../movie-data-row/movie-data-row";
 
 type MovieCardProps = {
   movie: Movie;
 };
 
-type MovieDataRowProps = {
-  label: string;
-  data: string | number;
-  className?: string;
-};
-
-const MovieDataRow = ({ data, label, className }: MovieDataRowProps) => {
-  return (
-    <div className={cn("flex gap-x-2", className)}>
-      <div className="font-semibold">{label}: </div>
-      <div>{data}</div>
-    </div>
-  );
-};
-
 export const MovieCard = ({ movie }: MovieCardProps) => {
-  const { original_title, overview, release_date, popularity } = movie;
+  const { original_title, overview, release_date, popularity, id } = movie;
 
+  // TODO: Revisit this whether it's a best practice (i forogt)
   return (
-    <div className="w-[600px] bg-blue-300 rounded-md p-4">
+    <Link
+      href={`/movie/${id}`}
+      className="w-[600px] bg-blue-300 rounded-md p-4"
+    >
       <MovieDataRow label="Title" data={original_title} className="text-2xl" />
       <MovieDataRow label="Overview" data={overview} />
       <MovieDataRow
@@ -33,6 +23,6 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         data={formatDate({ date: release_date })}
       />
       <MovieDataRow label="Popularity" data={popularity} />
-    </div>
+    </Link>
   );
 };

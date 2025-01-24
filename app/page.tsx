@@ -10,11 +10,11 @@ export default async function HomePage() {
     return <div>Fail fetching movie list data</div>;
   }
 
-  const resp: GetMovie200Response = await res.json();
+  const resData: GetMovie200Response = await res.json();
 
-  const movies = resp.results;
+  const movies = resData.results;
 
-  console.log({ movies });
+  // console.log({ movies });
 
   return <HomePageView movies={movies} />;
 }
